@@ -1,0 +1,80 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" style="margin: 10px 0px !important;">
+                <input type="text" autocomplete="off" class="form-control"
+                  placeholder="Search RegNo,Speed and locStr" [(ngModel)]="query" id="listSearch"
+                  (ngModelChange)="changetp()" />
+              </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        regNo
+                    </th>
+                    <th>
+                        distance
+                    </th>
+                    <th>
+                        haltedSince
+                    </th> 
+                    <th>
+                        locStr
+                    </th>  
+                    <th>
+                        exceptionBM
+                    </th> 
+                    <th>
+                        timestamp
+                    </th>
+                    <th>
+                        direction
+                    </th>
+                    <th>
+                        speed
+                    </th>  
+                    <th>
+                        bmStr
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let carinfo of data | search:query  | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+                    <td>
+                        {{carinfo.regNo}}
+                    </td>
+                    <td>
+                        {{carinfo.distance}}
+                    </td>
+                    <td>
+                        {{carinfo.haltedSince}}
+                    </td> 
+                    <td>
+                        {{carinfo.locStr}}
+                    </td>  
+                    <td>
+                        {{carinfo.exceptionBM}}
+                    </td> 
+                    <td>
+                        {{carinfo.timestamp}}
+                    </td>
+                    <td>
+                        {{carinfo.direction}}
+                    </td>
+                    <td [ngClass]="{'red':carinfo.speed > 5 ,'yellow': carinfo.speed > 20 ,'green': carinfo.speed > 10 && carinfo.speed < 20 }">
+                        {{carinfo.speed}}
+                    </td>
+                    <td>
+                        {{carinfo.bmStr}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+        </div>
+    </div>
+</section>
